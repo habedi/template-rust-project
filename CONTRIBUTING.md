@@ -5,7 +5,8 @@ Contributions are always welcome and appreciated.
 
 ## How to Contribute
 
-Please check the [issue tracker](https://github.com/habedi/template-go-project/issues) to see if there is an issue you would like to work on or if it has already been resolved.
+Please check the [issue tracker](https://github.com/habedi/template-go-project/issues) to see if there is an issue you
+would like to work on or if it has already been resolved.
 
 ### Reporting Bugs
 
@@ -28,7 +29,7 @@ Please check the [issue tracker](https://github.com/habedi/template-go-project/i
 
 ## Running Tests
 
-- Use the `make test` command to run the unit tests.
+- Use the `make test` command to run the tests.
 
 ## Running Linters
 
@@ -40,4 +41,4 @@ Please check the [issue tracker](https://github.com/habedi/template-go-project/i
 
 ## Code of Conduct
 
-We adhere to the [Go Community Code of Conduct](https://go.dev/conduct).
+We adhere to the [Rust Code of Conduct](https://www.rust-lang.org/policies/code-of-conduct).

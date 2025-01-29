@@ -1,43 +1,43 @@
 name: MacOS Build
 
 on:
-    workflow_dispatch: # Enable manual execution
+  workflow_dispatch: { } # Allow manual execution
 
 jobs:
-    build:
-        runs-on: macos-latest
+  build:
+    runs-on: macos-latest
 
-        steps:
-            # Checkout the repository
-            -   name: Checkout Repository
-                uses: actions/checkout@v4
+    steps:
+      # Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-            # Set up Go
-            -   name: Set up Go
-                uses: actions/setup-go@v5
-                with:
-                    go-version: 1.23
+      # Set up Rust
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
 
-            # Install dependencies and run the tests
-            -   name: Install Dependencies
-                run: |
-                    brew install make
-                    make test
-                continue-on-error: false
+      # Install dependencies and run the tests
+      - name: Install Dependencies
+        run: |
+          brew install make
+          make test
+        continue-on-error: false
 
-            # Build the application
-            -   name: Build for MacOS
-                run: |
-                    make build-macos
-                continue-on-error: false
+      # Build the application
+      - name: Build for MacOS
+        run: |
+          make build
+        continue-on-error: false
 
-            # Debug: List Build Directory
-            -   name: List Build Directory
-                run: ls -R bin
+      # Debug: List Build Directory
+      - name: List Build Directory
+        run: ls -R target
 
-            # Upload Build Artifact
-            -   name: Upload Build Artifact
-                uses: actions/upload-artifact@v4
-                with:
-                    name: template-go-project-macos-universal
-                    path: 'bin/template-go-project'
+      # Upload Build Artifact
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: template-rust-project-macos-amd64
+          path: 'target/release/template-rust-project'

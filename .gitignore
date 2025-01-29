@@ -67,17 +67,15 @@ tmp/
 # Dependency lock files (uncomment to ignore)
 poetry.lock
 
-# Golang specific
-*.out
-*.test
-*.prof
-*.exe
-coverage.txt
-coverage.out
-coverage.html
-#go.sum
+# Rust specific
+/target/
+.cargo-ok
+cobertura.xml
+tarpaulin-report.html
+
+# Comment out the next line if you want to checkin your lock file for Cargo
+Cargo.lock
 
 # Miscellaneous files and directories to ignore
 # Add any additional file patterns a directory names that should be ignored down here
-*.log
-bin/
+.DS_Store

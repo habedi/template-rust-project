@@ -1,11 +1,7 @@
 # Variables
-PKG = github.com/habedi/template-go-project
+PKG = github.com/habedi/template-rust-project
 BINARY_NAME = $(or $(PROJ_BINARY), $(notdir $(PKG)))
-BINARY = bin/$(BINARY_NAME)
-COVER_PROFILE = coverage.txt
-GO_FILES = $(shell find . -type f -name '*.go')
-COVER_FLAGS = --cover --coverprofile=$(COVER_PROFILE)
-CUSTOM_SNAPCRAFT_BUILD_ENVIRONMENT = $(or $(SNAP_BACKEND), multipass)
+BINARY = target/release/$(BINARY_NAME)
 PATH := /snap/bin:$(PATH)
 
 # Default target
@@ -16,34 +12,24 @@ help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: format
-format: ## Format Go files
-	@echo "Formatting Go files..."
-	go fmt ./...
+format: ## Format Rust files
+	@echo "Formatting Rust files..."
+	cargo fmt
 
 .PHONY: test
 test: format ## Run tests
 	@echo "Running tests..."
-	go test -v ./... $(COVER_FLAGS) --race
+	cargo test -- --nocapture
 
-.PHONY: showcov
-showcov: test ## Display test coverage report
-	@echo "Displaying test coverage report..."
-	go tool cover -func=$(COVER_PROFILE)
+.PHONY: coverage
+coverage: format ## Generate test coverage report
+	@echo "Generating test coverage report..."
+	cargo tarpaulin --out Xml --out Html
 
 .PHONY: build
 build: format ## Build the binary for the current platform
-	@echo "Tidying dependencies..."
-	go mod tidy
 	@echo "Building the project..."
-	go build -o $(BINARY)
-
-.PHONY: build-macos
-build-macos: format ## Build a universal binary for macOS (x86_64 and arm64)
-	@echo "Building universal binary for macOS..."
-	mkdir -p bin
-	GOARCH=amd64 go build -o bin/$(BINARY_NAME)-x86_64 ./main.go
-	GOARCH=arm64 go build -o bin/$(BINARY_NAME)-arm64 ./main.go
-	lipo -create -output $(BINARY) bin/$(BINARY_NAME)-x86_64 bin/$(BINARY_NAME)-arm64
+	cargo build --release
 
 .PHONY: run
 run: build ## Build and run the binary
@@ -53,32 +39,29 @@ run: build ## Build and run the binary
 .PHONY: clean
 clean: ## Remove generated and temporary files
 	@echo "Cleaning up..."
-	find . -type f -name '*.got.*' -delete
-	find . -type f -name '*.out' -delete
-	find . -type f -name '*.snap' -delete
-	rm -f $(COVER_PROFILE)
-	rm -rf bin/
+	cargo clean
 
-.PHONY: snap-deps
-snap-deps: ## Install Snapcraft dependencies
-	@echo "Installing Snapcraft dependencies..."
+.PHONY: install-snap
+install-snap: ## Install a few dependencies using Snapcraft
+	@echo "Installing the snap package..."
 	sudo apt-get update
 	sudo apt-get install -y snapd
 	sudo snap refresh
-	sudo snap install snapcraft --classic
-	sudo snap install multipass --classic
+	sudo snap install rustup --classic
 
 .PHONY: install-deps
-install-deps: ## Install development dependencies on Debian-based systems
+install-deps: install-snap ## Install development dependencies
 	@echo "Installing dependencies..."
-	make snap-deps
-	#sudo apt-get install -y chromium-browser build-essential chromium || true # ignore errors
-	#sudo snap install chromium
-	#sudo snap install go --classic
-	sudo snap install golangci-lint --classic
-	go mod download
+	rustup component add rustfmt clippy
+	cargo install cargo-tarpaulin
 
 .PHONY: lint
-lint: format ## Run linters on Go files
-	@echo "Linting Go files..."
-	golangci-lint run ./...
+lint: format ## Run linters on Rust files
+	@echo "Linting Rust files..."
+	cargo clippy -- -D warnings
+
+.PHONY: publish
+publish: ## Publish the package to crates.io (requires CARGO_REGISTRY_TOKEN to be set)
+	@echo "Publishing the package to Cargo registry..."
+	cargo publish --token $(CARGO_REGISTRY_TOKEN)
+
