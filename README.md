@@ -62,6 +62,7 @@ I share it here in case it might be useful to others.
 - Pre-configured GitHub Actions for running tests and making releases for different platforms
 - Makefile for managing common tasks such as formatting, testing, linting, and building
 - Example configuration files for common tools like `rustfmt`, `clippy`, and `editorconfig`
+- GitHub badges for tests, builds, code quality and coverage, documentation, etc.
 
 ## Contributing
 
