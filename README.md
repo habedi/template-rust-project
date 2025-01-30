@@ -72,5 +72,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to make a contribution
 
 This project is licensed under either of these:
 
-* MIT license ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)
+* MIT License ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)
 * Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)
