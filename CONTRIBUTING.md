@@ -24,7 +24,8 @@ would like to work on or if it has already been resolved.
 - Write a clear description of the changes you made and the reasons behind them.
 
 > [!IMPORTANT]
-> It's assumed that by submitting a pull request, you agree to license your code under the project's license(s).
+> Unless you explicitly state otherwise, any contribution you intentionally submit for inclusion in the work, as defined
+> in the Apache-2.0 license, shall be dual-licensed as above, without any additional terms or conditions.
 
 ## Development Workflow
 
