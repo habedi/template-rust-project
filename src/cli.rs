@@ -1,6 +1,6 @@
 use std::ffi::OsString;
 
-pub fn run(args: impl IntoIterator<Item = OsString>) -> Result<(), i32> {
+pub fn run(args: impl IntoIterator<Item=OsString>) -> Result<(), i32> {
     let _args: Vec<OsString> = args.into_iter().collect();
     // Your implementation here
     // Expecting at least 2 arguments
