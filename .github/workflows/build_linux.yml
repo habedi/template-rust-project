@@ -8,17 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Set up Rust
       - name: Set up Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
 
-      # Install dependencies and run the tests
       - name: Install Dependencies and Run Tests
         run: |
           sudo apt-get update
@@ -26,17 +23,14 @@ jobs:
           make test
         continue-on-error: false
 
-      # Build the application
       - name: Build for Linux
         run: |
           make build
         continue-on-error: false
 
-      # Debug: List Build Directory
-      - name: List Build Directory
+      - name: List Build Directory (for Debugging)
         run: ls -R target
 
-      # Upload Build Artifact
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:

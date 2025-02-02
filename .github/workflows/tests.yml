@@ -31,7 +31,7 @@ jobs:
       - name: Run Tests and Generate Coverage Report
         run: make coverage # Generates a coverage report
 
-      - name: Upload coverage reports to Codecov
+      - name: Upload Coverage Reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
