@@ -62,6 +62,7 @@ I share it here in case it might be useful to others.
 - Pre-configured GitHub Actions for running tests and making releases for different platforms
 - Makefile for managing common tasks such as formatting, testing, linting, and building
 - Example configuration files for common tools like `rustfmt`, `clippy`, and `editorconfig`
+- GitHub badges for tests, builds, code quality and coverage, documentation, etc.
 
 ## Contributing
 
@@ -69,5 +70,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to make a contribution
 
 ## License
 
-This project is licensed either under the [MIT License](LICENSE-MIT) or the [Apache License 2.0](LICENSE-APACHE), at
-your option.
+This project is licensed under either of these:
+
+* MIT License ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)
+* Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)

@@ -64,10 +64,3 @@ lint: format ## Run linters on Rust files
 publish: ## Publish the package to crates.io (requires CARGO_REGISTRY_TOKEN to be set)
 	@echo "Publishing the package to Cargo registry..."
 	cargo publish --token $(CARGO_REGISTRY_TOKEN)
-
-.PHONY: install-hooks
-install-hooks: ## Install pre-commit hooks (run if `make publish` fails due to `uncommitted changes`)
-	@echo "Installing pre-commit hooks..."
-	@mkdir -p .git/hooks
-	@echo '#!/bin/sh\nmake format\n' > .git/hooks/pre-commit
-	@chmod +x .git/hooks/pre-commit

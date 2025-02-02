@@ -1,11 +1,11 @@
 [package]
 name = "template-rust-project"
-version = "0.2.0"
+version = "0.2.3"
 description = "A template for Rust projects"
 repository = "https://github.com/habedi/template-rust-project"
-license = "MIT"
+license = "MIT OR Apache-2.0"
 readme = "README.md"
-keywords = ["rust", "project-template"]
+keywords = ["project-template", "rust", "library", "application"]
 authors = ["Hassan Abedi <hassan.abedi.t@gmail.com>"]
 homepage = "https://github.com/habedi/template-rust-project"
 documentation = "https://docs.rs/template-rust-project"
