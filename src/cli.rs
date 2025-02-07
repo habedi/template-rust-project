@@ -1,10 +1,12 @@
 use std::ffi::OsString;
+use tracing::error;
 
 pub fn run(args: impl IntoIterator<Item = OsString>) -> Result<(), i32> {
     let _args: Vec<OsString> = args.into_iter().collect();
     // Your implementation here
     // Expecting at least 2 arguments
     if _args.len() < 2 {
+        error!("Expecting at least 2 arguments");
         return Err(1);
     }
     Ok(())
