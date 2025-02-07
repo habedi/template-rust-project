@@ -24,7 +24,6 @@ path = "src/main.rs"
 ctor = "0.2.9"
 tracing = "0.1.41"
 tracing-subscriber = "0.3.19"
-log = "0.4.25"
 
 [dev-dependencies]
 criterion = { version = "0.5", features = ["html_reports"] }
