@@ -1,6 +1,6 @@
 [package]
 name = "template-rust-project"
-version = "0.2.4"
+version = "0.2.5"
 description = "A template for Rust projects"
 repository = "https://github.com/habedi/template-rust-project"
 license = "MIT OR Apache-2.0"
@@ -12,9 +12,6 @@ documentation = "https://docs.rs/template-rust-project"
 categories = ["development-tools"]
 edition = "2021"
 rust-version = "1.83"
-
-[workspace]
-members = []
 
 resolver = "2"
 
@@ -41,7 +38,7 @@ default = []  # No features enabled by default
 binaries = []
 
 [dependencies]
-ctor = "0.2.9"
+ctor = "0.4.1"
 tracing = "0.1.41"
 tracing-subscriber = "0.3.19"
 
@@ -53,9 +50,19 @@ name = "project_benchmarks"
 harness = false
 
 [profile.release]
-strip = "symbols"
+strip = "debuginfo"
+panic = "abort"
 codegen-units = 1
 lto = true
 
 [profile.bench]
 debug = true
+
+[profile.test]
+debug = true
+
+[profile.example]
+inherits = "release"
+
+[workspace]
+members = []
