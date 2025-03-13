@@ -24,7 +24,7 @@ format: ## Format Rust files
 .PHONY: test
 test: format ## Run the tests
 	@echo "Running tests..."
-	@DEBUG_PROJ=$(DEBUG_PROJ) RUST_BACKTRACE=$(RUST_BACKTRACE) cargo test -- --nocapture
+	@DEBUG_PROJ=$(DEBUG_PROJ) RUST_BACKTRACE=$(RUST_BACKTRACE) cargo test --all-targets --workspace -- --nocapture
 
 .PHONY: coverage
 coverage: format ## Generate test coverage report
@@ -94,9 +94,9 @@ figs: ## Generate the figures in the assets directory
 	@$(SHELL) $(ASSET_DIR)/make_figures.sh $(ASSET_DIR)
 
 .PHONY: fix-lint
-fix_lint: ## Fix the linter warnings
+fix-lint: ## Fix the linter warnings
 	@echo "Fixing linter warnings..."
-	@cargo clippy --fix --allow-dirty --allow-staged
+	@cargo clippy --fix --allow-dirty --allow-staged --all-targets --workspace --all-features -- -D warnings
 
 .PHONY: testdata
 testdata: ## Download the datasets used in tests
