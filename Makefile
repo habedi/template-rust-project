@@ -1,6 +1,6 @@
 # Variables
-REPO_URL = github.com/habedi/template-rust-project
-BINARY_NAME := $(or $(PROJ_BINARY), $(notdir $(REPO_URL)))
+PROJ_REPO = github.com/habedi/template-rust-project
+BINARY_NAME := $(or $(PROJ_BINARY), $(notdir $(PROJ_REPO)))
 BINARY := target/release/$(BINARY_NAME)
 PATH := /snap/bin:$(PATH)
 DEBUG_PROJ := 0
