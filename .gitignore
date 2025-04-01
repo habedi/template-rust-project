@@ -82,3 +82,4 @@ Cargo.lock
 tests/testdata/*.csv
 tests/testdata/*.parquet
 .benchmarks
+.env
