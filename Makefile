@@ -10,7 +10,6 @@ endif
 PROJ_REPO = github.com/habedi/template-rust-project
 BINARY_NAME := $(or $(PROJ_BINARY), $(notdir $(PROJ_REPO)))
 BINARY := target/release/$(BINARY_NAME)
-MAKEFILE_LIST := Makefile
 PATH := /snap/bin:$(PATH)
 DEBUG_PROJ := 0
 RUST_BACKTRACE := 1
@@ -22,9 +21,9 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 .PHONY: help
-help: ## Show the help message for each target
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; \
- 	{printf "\033[36m%-30s\033[0m%s\n", $$1, $$2}'
+help: ## Show help messages for all available targets
+	@grep -E '^[a-zA-Z_-]+:.*## .*$$' Makefile | \
+	awk 'BEGIN {FS = ":.*## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: format
 format: ## Format Rust files
