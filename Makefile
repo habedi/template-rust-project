@@ -93,9 +93,9 @@ audit: ## Run security audit on Rust dependencies
 	@echo "Running security audit..."
 	@cargo audit
 
-.PHONY: careful
-careful: ## Run security checks with cargo-careful
-	@echo "Running cargo-careful..."
+.PHONY: rust-careful
+careful: ## Run security checks on Rust code
+	@echo "Running security checks..."
 	@cargo careful
 
 .PHONY: docs
