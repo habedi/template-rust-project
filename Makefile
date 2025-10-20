@@ -70,12 +70,13 @@ install-deps: install-snap ## Install development dependencies
 	@rustup component add rustfmt clippy
 	@cargo install cargo-tarpaulin
 	@cargo install cargo-audit
+	@cargo install cargo-careful
 	@cargo install cargo-nextest
 
 .PHONY: lint
 lint: format ## Run the linters
 	@echo "Linting Rust files..."
-	@DEBUG_PROJ=$(DEBUG_PROJ) cargo clippy -- -D warnings
+	@DEBUG_PROJ=$(DEBUG_PROJ) cargo clippy -- -D warnings -D clippy::unwrap_used -D clippy::expect_used
 
 .PHONY: publish
 publish: ## Publish the package to crates.io (requires CARGO_REGISTRY_TOKEN to be set)
@@ -92,8 +93,13 @@ audit: ## Run security audit on Rust dependencies
 	@echo "Running security audit..."
 	@cargo audit
 
-.PHONY: doc
-doc: format ## Generate the documentation
+.PHONY: careful
+careful: ## Run security checks with cargo-careful
+	@echo "Running cargo-careful..."
+	@cargo careful
+
+.PHONY: docs
+docs: format ## Generate the documentation
 	@echo "Generating documentation..."
 	@cargo doc --no-deps --document-private-items
 
@@ -105,7 +111,7 @@ figs: ## Generate the figures in the assets directory
 .PHONY: fix-lint
 fix-lint: ## Fix the linter warnings
 	@echo "Fixing linter warnings..."
-	@cargo clippy --fix --allow-dirty --allow-staged --all-targets --workspace --all-features -- -D warnings
+	@cargo clippy --fix --allow-dirty --allow-staged --all-targets --workspace --all-features -- -D warnings -D clippy::unwrap_used -D clippy::expect_used
 
 .PHONY: testdata
 testdata: ## Download the datasets used in tests
