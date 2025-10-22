@@ -3,11 +3,9 @@ name = "template-rust-project"
 version = "0.1.0"
 description = "Python environment for the template-rust-project"
 authors = ["Hassan Abedi <hassan.abedi.t@gmail.com>"]
-maintainers = ["Hassan Abedi <hassan.abedi.t@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-poetry-dynamic-versioning = "^1.4.0"
 pytest = "^8.0.1"
 pytest-cov = "^6.0.0"
 pytest-mock = "^3.14.0"

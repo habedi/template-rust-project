@@ -1,6 +1,14 @@
+# Load environment variables from .env file
+ifneq (,$(wildcard ./.env))
+    include .env
+    export $(shell sed 's/=.*//' .env)
+else
+    $(warning .env file not found. Environment variables not loaded.)
+endif
+
 # Variables
-REPO_URL = github.com/habedi/template-rust-project
-BINARY_NAME := $(or $(PROJ_BINARY), $(notdir $(REPO_URL)))
+PROJ_REPO = github.com/habedi/template-rust-project
+BINARY_NAME := $(or $(PROJ_BINARY), $(notdir $(PROJ_REPO)))
 BINARY := target/release/$(BINARY_NAME)
 PATH := /snap/bin:$(PATH)
 DEBUG_PROJ := 0
@@ -13,8 +21,9 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 .PHONY: help
-help: ## Show this help message
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m%s\n", $$1, $$2}'
+help: ## Show help messages for all available targets
+	@grep -E '^[a-zA-Z_-]+:.*## .*$$' Makefile | \
+	awk 'BEGIN {FS = ":.*## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: format
 format: ## Format Rust files
@@ -24,7 +33,7 @@ format: ## Format Rust files
 .PHONY: test
 test: format ## Run the tests
 	@echo "Running tests..."
-	@DEBUG_PROJ=$(DEBUG_PROJ) RUST_BACKTRACE=$(RUST_BACKTRACE) cargo test -- --nocapture
+	@DEBUG_PROJ=$(DEBUG_PROJ) RUST_BACKTRACE=$(RUST_BACKTRACE) cargo test --all-targets --workspace -- --nocapture
 
 .PHONY: coverage
 coverage: format ## Generate test coverage report
@@ -61,12 +70,13 @@ install-deps: install-snap ## Install development dependencies
 	@rustup component add rustfmt clippy
 	@cargo install cargo-tarpaulin
 	@cargo install cargo-audit
+	@cargo install cargo-careful
 	@cargo install cargo-nextest
 
 .PHONY: lint
 lint: format ## Run the linters
 	@echo "Linting Rust files..."
-	@DEBUG_PROJ=$(DEBUG_PROJ) cargo clippy -- -D warnings
+	@DEBUG_PROJ=$(DEBUG_PROJ) cargo clippy -- -D warnings -D clippy::unwrap_used -D clippy::expect_used
 
 .PHONY: publish
 publish: ## Publish the package to crates.io (requires CARGO_REGISTRY_TOKEN to be set)
@@ -83,8 +93,13 @@ audit: ## Run security audit on Rust dependencies
 	@echo "Running security audit..."
 	@cargo audit
 
-.PHONY: doc
-doc: format ## Generate the documentation
+.PHONY: rust-careful
+careful: ## Run security checks on Rust code
+	@echo "Running security checks..."
+	@cargo careful
+
+.PHONY: docs
+docs: format ## Generate the documentation
 	@echo "Generating documentation..."
 	@cargo doc --no-deps --document-private-items
 
@@ -94,9 +109,9 @@ figs: ## Generate the figures in the assets directory
 	@$(SHELL) $(ASSET_DIR)/make_figures.sh $(ASSET_DIR)
 
 .PHONY: fix-lint
-fix_lint: ## Fix the linter warnings
+fix-lint: ## Fix the linter warnings
 	@echo "Fixing linter warnings..."
-	@cargo clippy --fix --allow-dirty --allow-staged
+	@cargo clippy --fix --allow-dirty --allow-staged --all-targets --workspace --all-features -- -D warnings -D clippy::unwrap_used -D clippy::expect_used
 
 .PHONY: testdata
 testdata: ## Download the datasets used in tests

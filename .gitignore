@@ -81,3 +81,5 @@ Cargo.lock
 .DS_Store
 tests/testdata/*.csv
 tests/testdata/*.parquet
+.benchmarks
+.env

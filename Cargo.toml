@@ -64,5 +64,10 @@ debug = true
 [profile.example]
 inherits = "release"
 
+[package.metadata.rustfmt]
+max_width = 100
+hard_tabs = false
+tab_spaces = 4
+
 [workspace]
 members = []
