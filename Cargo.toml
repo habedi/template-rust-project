@@ -1,6 +1,6 @@
 [package]
 name = "template-rust-project"
-version = "0.2.6"
+version = "0.3.0"
 description = "A template for Rust projects"
 repository = "https://github.com/habedi/template-rust-project"
 license = "MIT OR Apache-2.0"
