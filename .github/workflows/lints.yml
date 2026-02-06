@@ -8,7 +8,6 @@ on:
     paths-ignore:
       - '**.md'
       - 'docs/**'
-      - '.github/**'
   push:
     tags:
       - 'v*'
@@ -17,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  lint:
+  lints:
     runs-on: ubuntu-latest
 
     steps:
