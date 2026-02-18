@@ -1,10 +1,13 @@
 name: Build for Windows
 
 on:
-  workflow_dispatch: { } # Allow manual execution
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
 
     steps:

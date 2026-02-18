@@ -1,6 +1,6 @@
 [package]
 name = "template-rust-project"
-version = "0.2.5"
+version = "0.3.0"
 description = "A template for Rust projects"
 repository = "https://github.com/habedi/template-rust-project"
 license = "MIT OR Apache-2.0"
@@ -38,12 +38,12 @@ default = []  # No features enabled by default
 binaries = []
 
 [dependencies]
-ctor = "0.4.1"
+ctor = "0.6.0"
 tracing = "0.1.41"
 tracing-subscriber = "0.3.19"
 
 [dev-dependencies]
-criterion = { version = "0.5", features = ["html_reports"] }
+criterion = { version = "0.7.0", features = ["html_reports"] }
 
 [[bench]]
 name = "project_benchmarks"
@@ -51,7 +51,7 @@ harness = false
 
 [profile.release]
 strip = "debuginfo"
-panic = "abort"
+panic = "unwind"
 codegen-units = 1
 lto = true
 

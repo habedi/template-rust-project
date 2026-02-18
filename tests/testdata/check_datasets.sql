@@ -9,4 +9,3 @@ SELECT * FROM read_parquet('yellow_tripdata_2019-01.parquet') LIMIT 5;
 
 -- Query the NYC Green Taxi Parquet file using parquet_scan:
 SELECT * FROM read_parquet('green_tripdata_2019-01.parquet') LIMIT 5;
-

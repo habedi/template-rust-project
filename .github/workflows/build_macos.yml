@@ -1,10 +1,13 @@
 name: Build for macOS
 
 on:
-  workflow_dispatch: { } # Allow manual execution
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
+  build-macos:
     runs-on: macos-latest
 
     steps:

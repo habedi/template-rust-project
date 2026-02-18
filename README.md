@@ -1,4 +1,4 @@
-# A Template for Rust Projects
+## A Template for Rust Projects
 
 <div align="center">
   <picture>
@@ -25,10 +25,12 @@
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-007ec6?style=flat&labelColor=282c34&logo=open-source-initiative)](https://github.com/habedi/template-rust-project)
 [![Status: Stable](https://img.shields.io/badge/status-stable-green.svg?style=flat&labelColor=282c34)](https://github.com/habedi/template-rust-project)
 
+---
+
 This is a template repository with a minimalistic structure to make it easier to start a new Rust project.
 I share it here in case it might be useful to others.
 
-## Features
+### Features
 
 - Minimalistic project structure
 - Pre-configured GitHub Actions for running tests and making releases for different platforms
@@ -36,11 +38,11 @@ I share it here in case it might be useful to others.
 - Example configuration files for common tools like `rustfmt`, `clippy`, and `editorconfig`
 - GitHub badges for tests, builds, code quality and coverage, documentation, etc.
 
-## Contributing
+### Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to make a contribution.
 
-## License
+### License
 
 This project is licensed under either of these:
 

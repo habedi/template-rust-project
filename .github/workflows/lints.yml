@@ -1,13 +1,22 @@
-name: Run Linters
+name: Run Linter Checks
 
 on:
-  workflow_dispatch: { } # Allow manual execution
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
   push:
     tags:
-      - 'v*' # Trigger on version tags
+      - 'v*'
+
+permissions:
+  contents: read
 
 jobs:
-  lint:
+  lints:
     runs-on: ubuntu-latest
 
     steps:
