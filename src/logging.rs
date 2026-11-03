@@ -2,7 +2,7 @@ use ctor::ctor;
 use tracing::Level;
 use tracing_subscriber;
 
-#[ctor]
+#[ctor(unsafe)]
 fn set_debug_level() {
     // If DEBUG_PROJ is not set or set to false, disable logging. Otherwise, enable logging
     if std::env::var("DEBUG_PROJ").map_or(true, |v| v == "0" || v == "false" || v.is_empty()) {
